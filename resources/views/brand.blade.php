@@ -120,7 +120,9 @@
 
     $(document).on('click', '#btn-edit-brand', function(){
       let id = $(this).data('id');
-      alert(id);
+      let name = $(this).data('name');
+      let desc = $(this).data('description');
+      alert(desc);
     //   $('#image-area').empty();
 
       let baseurl = "http://localhost:8000";
@@ -132,6 +134,7 @@
         success: function(res){
           $('#edit-name').val(res.name);
           $('#edit-description').val(res.description);
+          $('#edit-id').val(res.id);
         //   if(res.cover !==null){
         //     $('#image-area').append(
         //       "<img src='"+baseurl+"/storage/cover_buku/"+res.cover+"' width=200px'>"

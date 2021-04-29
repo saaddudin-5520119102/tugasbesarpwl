@@ -37,7 +37,7 @@ Route::post('admin/brands', [App\Http\Controllers\AdminController::class, 'submi
 ->name('admin.brand.submit')
 ->middleware('is_admin');
 
-Route::post('admin/brands/update', [App\Http\Controllers\AdminController::class, 'update_brand'])
+Route::patch('admin/brands/update', [App\Http\Controllers\AdminController::class, 'update_brand'])
 ->name('admin.brand.update')
 ->middleware('is_admin');
 

@@ -36,7 +36,7 @@ class AdminController extends Controller
 
     public function submit_brand(Request $req)
     {
-        $brand =new Brand;
+        $brand = new Brand;
 
         $brand->name = $req->get('name');
         $brand->description = $req->get('description');
@@ -47,6 +47,7 @@ class AdminController extends Controller
             'alert-type' => 'success'
         );
         return redirect()->route('admin.brands')->with($notification);
+        
     }
 
     public function getDataBrand($id){
@@ -54,29 +55,18 @@ class AdminController extends Controller
         return response()->json($brand);
     }
 
-    // public function update_book(Request $req){
-    //     $book = Book::find($req->get('id'));
-    //     $book->judul = $req->get('judul');
-    //     $book->penulis = $req->get('penulis');
-    //     $book->tahun = $req->get('tahun');
-    //     $book->penerbit = $req->get('penerbit');
+    public function update_brand(Request $req){
+        $brand = Brand::find($req->get('id'));
+        $brand->name = $req->get('name');
+        $brand->description = $req->get('description');
+        $brand->save();
+        
 
-    //     if($req->hasFile('cover')){
-    //         $extension = $req->file('cover')->extension();
-    //         $filename = 'cover_buku_'.time().'.'.$extension;
-    //         $req->file('cover')->storeAs(
-    //             'public/cover_buku', $filename
-    //         );
-    //         Storage::delete('public/cover_buku/'.$req->get('old_cover'));
-    //         $book->cover = $filename;
-    //     }
 
-    //     $book->save();
-
-    //     $notification = array(
-    //         'message' => 'Data buku berhasil diubah',
-    //         'alert-type' => 'success'
-    //     );
-    //     return redirect()->route('admin.books')->with($notification);
-    // }
+        $notification = array(
+            'message' => 'Data brand berhasil diubah',
+            'alert-type' => 'success'
+        );
+        return redirect()->route('admin.brands')->with($notification);
+    }
 }
