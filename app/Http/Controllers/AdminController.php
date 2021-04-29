@@ -20,19 +20,15 @@ class AdminController extends Controller
         return view('home', compact('user'));
     }
 
+
+    // brands
+
     public function brands(){
         $user = Auth::user();
         $brands = Brand::all();
         return view('brand', compact('user', 'brands'));
     }
 
-    // public function categories(){
-    //     $user = Auth::user();
-    //     $brands = Category::all();
-    //     return view('category', compact('user', 'categories'));
-    // }
-
-    // mulai
 
     public function submit_brand(Request $req)
     {
@@ -69,4 +65,71 @@ class AdminController extends Controller
         );
         return redirect()->route('admin.brands')->with($notification);
     }
+
+    public function delete_brand(Request $req){
+        $brand = Brand::find($req->get('id'));
+        $brand->delete();
+
+        $notification = array(
+            'message' => 'Data brand berhasil dihapus',
+            'alert-type' => 'success'
+        );
+        return redirect()->route('admin.brands')->with($notification);
+    }
+
+
+    // categories
+
+     public function categories(){
+        $user = Auth::user();
+        $categories = Category::all();
+        return view('category', compact('user', 'categories'));
+    }
+
+    public function submit_category(Request $req)
+    {
+        $category = new Category;
+
+        $category->name = $req->get('name');
+        $category->description = $req->get('description');
+        $category->save();
+
+        $notification = array(
+            'message' => 'Data categori berhasil ditambahkan',
+            'alert-type' => 'success'
+        );
+        return redirect()->route('admin.categories')->with($notification);
+        
+    }
+
+    public function getDataCategory($id){
+        $category = Category::find($id);
+        return response()->json($category);
+    }
+
+    public function update_category(Request $req){
+        $category = Category::find($req->get('id'));
+        $category->name = $req->get('name');
+        $category->description = $req->get('description');
+        $category->save();
+        
+
+
+        $notification = array(
+            'message' => 'Data categori berhasil diubah',
+            'alert-type' => 'success'
+        );
+        return redirect()->route('admin.categories')->with($notification);
+    }
+
+    // public function delete_brand(Request $req){
+    //     $brand = Brand::find($req->get('id'));
+    //     $brand->delete();
+
+    //     $notification = array(
+    //         'message' => 'Data brand berhasil dihapus',
+    //         'alert-type' => 'success'
+    //     );
+    //     return redirect()->route('admin.brands')->with($notification);
+    // }
 }

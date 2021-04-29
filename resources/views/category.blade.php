@@ -1,16 +1,16 @@
 @extends('adminlte::page')
 
-@section('title', 'Pengelolaan Brand')
+@section('title', 'Pengelolaan Category')
 
 @section('content_header')
-    <h1 class="m-0 text-dark">Pengelolaan Brand</h1>
+    <h1 class="m-0 text-dark">Pengelolaan Category</h1>
 @stop
 
 @section('content')
     <div class="row">
         <div class="col-12">
             <div class="card">
-                <div class="card-header">{{ __('Pengelolaan Brand') }} <button class="btn btn-primary float-right" data-toggle="modal" data-target="#tambahBrandModal"><i class="fa fa-plus"></i>Tambah Data</button></div>
+                <div class="card-header">{{ __('Pengelolaan Category') }} <button class="btn btn-primary float-right" data-toggle="modal" data-target="#tambahCategoryModal"><i class="fa fa-plus"></i>Tambah Data</button></div>
                 <div class="card-body">
                     
                     <table id="table-data" class="table table-borderer">
@@ -24,15 +24,15 @@
                         </thead>
                         <tbody>
                             @php $no=1 @endphp
-                            @foreach ($brands as $brand )
+                            @foreach ($categories as $category )
                                 <tr class="tengahflex">
                                     <td style="padding-top: 10px">{{ $no++ }}</td>
-                                    <td style="padding-top: 10px">{{ $brand->name }}</td>
-                                    <td style="padding-top: 10px">{{ $brand->description }}</td>
+                                    <td style="padding-top: 10px">{{ $category->name }}</td>
+                                    <td style="padding-top: 10px">{{ $category->description }}</td>
                                     <td>
                                         <div class="btn-group" role="group" aria-label="Basic example">
-                                          <button type="button" id="btn-edit-brand" class="btn btn-success" data-toggle="modal" data-target="#editBrandModal" data-id="{{ $brand->id }}">edit</button>
-                                          <button type="button" id="btn-delete-brand" class="btn btn-danger" data-toggle="modal" data-target="#deleteBrandModal" data-id="{{ $brand->id }}">Hapus</button>
+                                          <button type="button" id="btn-edit-category" class="btn btn-success" data-toggle="modal" data-target="#editCategoryModal" data-id="{{ $category->id }}">edit</button>
+                                          <button type="button" id="btn-delete-category" class="btn btn-danger" data-toggle="modal" data-target="#deleteCategoryModal" data-id="{{ $category->id }}">Hapus</button>
                                         </div>
                                     </td>
                                 </tr>
@@ -44,7 +44,7 @@
         </div>
     </div>
 
-<div class="modal fade" id="tambahBrandModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="tambahCategoryModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
@@ -54,10 +54,10 @@
         </button>
       </div>
       <div class="modal-body">
-        <form method="post" action="{{ route('admin.brand.submit') }}" enctype="multipart/form-data">
+        <form method="post" action="{{ route('admin.category.submit') }}" enctype="multipart/form-data">
         @csrf
           <div class="form-group">
-            <label for="name">Nama Brand</label>
+            <label for="name">Nama Categori</label>
             <input type="text" class="form-control" name="name" id="name" required>
           </div>
           <div class="form-group">
@@ -74,17 +74,17 @@
 </div>
 
 
-<div class="modal fade" id="editBrandModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="editCategoryModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Edit Data Brand</h5>
+        <h5 class="modal-title" id="exampleModalLabel">Edit Data Category</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
       <div class="modal-body">
-          <form method="post" action="{{ route('admin.brand.update') }}" enctype="multipart/form-data">
+          <form method="post" action="{{ route('admin.category.update') }}" enctype="multipart/form-data">
           @csrf
           @method('PATCH')
           <div class="row">
@@ -100,7 +100,6 @@
             </div>
             <div class="modal-footer">
               <input type="hidden" name="id" id="edit-id">
-              <!-- <input type="hidden" name="old_cover" id="edit-old-cover"> -->
               <button type="button" class="btn btn-secondary" data-dismiss="modal" style="padding: 5px 20px 5px 20px;">Tutup</button>
               <button type="submit" class="btn btn-primary" style="padding: 5px 20px 5px 20px;">Update!</button>
             </div>
@@ -111,7 +110,7 @@
   </div>
 </div>
 
-<div class="modal fade" id="deleteBrandModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<!-- <div class="modal fade" id="deleteBrandModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
@@ -128,14 +127,13 @@
           <div class="modal-footer">
             <input type="hidden" name="id" id="delete-id">
             <input type="hidden" name="old_cover" id="delete-old-cover">
-            <!-- <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button> -->
             <button type="submit" class="btn btn-primary">Hapus</button>
           </div>
         </form>
       </div>
     </div>
   </div>
-</div>
+</div> -->
 
 
 @stop
@@ -145,40 +143,31 @@
 <script>
   $(function(){
 
-    $(document).on('click', '#btn-edit-brand', function(){
+    $(document).on('click', '#btn-edit-category', function(){
       let id = $(this).data('id');
-
-    //   $('#image-area').empty();
 
       let baseurl = "http://localhost:8000";
 
       $.ajax({
         type: "get",
-        url: baseurl+'/admin/ajaxadmin/dataBrand/'+id,
+        url: baseurl+'/admin/ajaxadmin/dataCategory/'+id,
         dataType: 'json',
         success: function(res){
           $('#edit-name').val(res.name);
           $('#edit-description').val(res.description);
           $('#edit-id').val(res.id);
-        //   if(res.cover !==null){
-        //     $('#image-area').append(
-        //       "<img src='"+baseurl+"/storage/cover_buku/"+res.cover+"' width=200px'>"
-        //     );
-        //   }else{
-        //     $('#image-area').append('[Gambar tidak tersedia]');
-        //   }
         }
 
 
       });
     });
 
-    $(document).on('click', '#btn-delete-brand', function(){
-    let id = $(this).data('id');
+    // $(document).on('click', '#btn-delete-brand', function(){
+    // let id = $(this).data('id');
     
 
-    $('#delete-id').val(id);
-  });
+    // $('#delete-id').val(id);
+  // });
 
   });
 

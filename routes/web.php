@@ -29,6 +29,8 @@ Route::get('admin/home', [App\Http\Controllers\AdminController::class, 'index'])
     ->name('admin.home')
     ->middleware('is_admin');
 
+
+    // brand
 Route::get('admin/brands', [App\Http\Controllers\AdminController::class, 'brands'])
 ->name('admin.brands')
 ->middleware('is_admin');
@@ -42,3 +44,28 @@ Route::patch('admin/brands/update', [App\Http\Controllers\AdminController::class
 ->middleware('is_admin');
 
 Route::get('admin/ajaxadmin/dataBrand/{id}', [App\Http\Controllers\AdminController::class, 'getDataBrand']);
+
+Route::delete('admin/brands/delete', [App\Http\Controllers\AdminController::class, 'delete_brand'])
+    ->name('admin.brand.delete')
+    ->middleware('is_admin');
+
+
+    // category
+
+Route::get('admin/categories', [App\Http\Controllers\AdminController::class, 'categories'])
+    ->name('admin.categories')
+    ->middleware('is_admin');
+
+Route::post('admin/categories', [App\Http\Controllers\AdminController::class, 'submit_category'])
+    ->name('admin.category.submit')
+    ->middleware('is_admin');
+
+Route::patch('admin/categories/update', [App\Http\Controllers\AdminController::class, 'update_category'])
+    ->name('admin.category.update')
+    ->middleware('is_admin');
+
+Route::get('admin/ajaxadmin/dataCategory/{id}', [App\Http\Controllers\AdminController::class, 'getDataCategory']);
+
+// Route::delete('admin/brands/delete', [App\Http\Controllers\AdminController::class, 'delete_brand'])
+//     ->name('admin.brand.delete')
+//     ->middleware('is_admin');
