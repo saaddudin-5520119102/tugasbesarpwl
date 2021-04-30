@@ -69,3 +69,11 @@ Route::get('admin/ajaxadmin/dataCategory/{id}', [App\Http\Controllers\AdminContr
 // Route::delete('admin/brands/delete', [App\Http\Controllers\AdminController::class, 'delete_brand'])
 //     ->name('admin.brand.delete')
 //     ->middleware('is_admin');
+
+
+// user
+Route::get('user/barang', [App\Http\Controllers\AdminController::class, 'barang'])
+->name('user.barang');
+
+Route::post('user/barang', [App\Http\Controllers\AdminController::class, 'submit_barang'])
+->name('user.barang.submit');

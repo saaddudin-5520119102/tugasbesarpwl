@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Storage;
 
 use App\Models\Brand;
 use App\Models\Category;
+use App\Models\Product;
 
 class AdminController extends Controller
 {
@@ -132,4 +133,40 @@ class AdminController extends Controller
     //     );
     //     return redirect()->route('admin.brands')->with($notification);
     // }
+
+
+    // user
+    public function barang(){
+        $user = Auth::user();
+        $barang = Product::all();
+        $brands = Brand::all();
+        $categories = Category::all();
+        return view('barang', compact('user', 'barang', 'brands', 'categories'));
+    }
+
+    public function submit_barang(Request $req)
+    {
+        $barang = new Product;
+
+        $barang->name = $req->get('name');
+        $barang->qty = $req->get('qty');
+        $barang->brands_id = $req->get('brands_id');
+        $barang->categories_id = $req->get('categories_id');
+        if($req->hasFile('photo')){
+            $extension = $req->file('photo')->extension();
+            $filename = 'photo_barang_'.time().'.'.$extension;
+            $req->file('photo')->storeAs(
+                'public/photo_barang', $filename
+            );
+            $barang->photo = $filename;
+        }
+        $barang->save();
+
+        $notification = array(
+            'message' => 'Data categori berhasil ditambahkan',
+            'alert-type' => 'success'
+        );
+        return redirect()->route('user.barang')->with($notification);
+        
+    }
 }

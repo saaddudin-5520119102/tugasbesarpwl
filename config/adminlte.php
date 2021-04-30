@@ -264,6 +264,7 @@ return [
             'text' => 'Users',
             'url' => 'admin/users',
             'icon' => 'fas fa-users mr-2',
+            'can'  => 'isAdmin',
         ],
         [
             'text'    => 'Products',
@@ -281,6 +282,15 @@ return [
                 ],
             ],
             'can'  => 'isAdmin',
+        ],
+        ['header' => 'MANAGEMENT BARANG',
+         'can'  => 'isUser',
+        ],
+        [
+            'text' => 'Barang',
+            'url' => 'user/barang',
+            'icon' => 'nav-icon fas fa-edit',
+            'can'  => 'isUser',
         ],
         // [
         //     'text'        => 'pages',
