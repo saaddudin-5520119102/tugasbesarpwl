@@ -199,4 +199,16 @@ class AdminController extends Controller
         );
         return redirect()->route('user.barang')->with($notification);
     }
+
+    public function delete_barang(Request $req){
+        $barang = Product::find($req->get('id'));
+        Storage::delete('public/photo_barang/'.$req->get('old_photo'));
+        $barang->delete();
+
+        $notification = array(
+            'message' => 'Data barang berhasil dihapus',
+            'alert-type' => 'success'
+        );
+        return redirect()->route('user.barang')->with($notification);
+    }
 }

@@ -82,3 +82,6 @@ Route::patch('user/barang/update', [App\Http\Controllers\AdminController::class,
     ->name('user.barang.update');
 
 Route::get('user/ajaxadmin/dataBarang/{id}', [App\Http\Controllers\AdminController::class, 'getDataBarang']);
+
+Route::delete('user/barang/delete', [App\Http\Controllers\AdminController::class, 'delete_barang'])
+    ->name('user.barang.delete');

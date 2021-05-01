@@ -44,7 +44,7 @@
                                     <td>
                                         <div class="btn-group" role="group" aria-label="Basic example">
                                           <button type="button" id="btn-edit-barang" class="btn btn-success" data-toggle="modal" data-target="#editBarangModal" data-id="{{ $bar->id }}">edit</button>
-                                          <button type="button" id="btn-delete-barang" class="btn btn-danger" data-toggle="modal" data-target="#deleteBarangModal" data-id="{{ $bar->id }}">Hapus</button>
+                                          <button type="button" id="btn-delete-barang" class="btn btn-danger" data-toggle="modal" data-target="#deleteBarangModal" data-id="{{ $bar->id }}" data-cover="{{ $bar->photo }}">Hapus</button>
                                         </div>
                                     </td>
                                 </tr>
@@ -137,59 +137,87 @@
           <div class="row">
             <div class="col-md-6">
 
-            <div class="form-group">
-            <label for="edit-name">Nama Barang</label>
-            <input type="text" class="form-control" name="name" id="edit-name" required>
-          </div>
-          <div class="form-group">
-            <label for="edit-qty">Qty</label>
-            <input type="number" class="form-control" name="qty" id="edit-qty" required>
-          </div>
+              <div class="form-group">
+                <label for="edit-name">Nama Barang</label>
+                <input type="text" class="form-control" name="name" id="edit-name" required>
+              </div>
+              <div class="form-group">
+                <label for="edit-qty">Qty</label>
+                <input type="number" class="form-control" name="qty" id="edit-qty" required>
+              </div>
          
-          <div class="form-group">
-            <label class="font-noraml">
-                Brands_Id
-            </label>
-            <div class="input-group">
-                <select data-placeholder="Select a grade..." class="form-control chosen-select" style="width:350px;" tabindex="2" name="brands_id" id="edit-brands_id">
-                <option value="">
-                </option>
-                @foreach ($brands as $brand )
-                <option value="{{ $brand->id }}">{{ $brand->id }} {{ $brand->name }}</option>
-                @endforeach
-                </select>
+              <div class="form-group">
+                <label class="font-noraml">
+                    Brands_Id
+                </label>
+                <div class="input-group">
+                    <select data-placeholder="Select a grade..." class="form-control chosen-select" style="width:350px;" tabindex="2" name="brands_id" id="edit-brands_id">
+                    <option value="">
+                    </option>
+                    @foreach ($brands as $brand )
+                    <option value="{{ $brand->id }}">{{ $brand->id }} {{ $brand->name }}</option>
+                    @endforeach
+                    </select>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label class="font-noraml">
+                    Categories_Id
+                </label>
+                <div class="input-group">
+                    <select data-placeholder="Select a grade..." class="form-control chosen-select" style="width:350px;" tabindex="2" name="categories_id" id="edit-categories_id">
+                    <option value="">
+                    </option>
+                    @foreach ($categories as $category )
+                    <option value="{{ $category->id }}">{{ $category->id }} {{ $category->name }}</option>
+                    @endforeach
+                    </select>
+                </div>
+              </div>
+
             </div>
-          </div>
-
-          <div class="form-group">
-            <label class="font-noraml">
-                Categories_Id
-            </label>
-            <div class="input-group">
-                <select data-placeholder="Select a grade..." class="form-control chosen-select" style="width:350px;" tabindex="2" name="categories_id" id="edit-categories_id">
-                <option value="">
-                </option>
-                @foreach ($categories as $category )
-                <option value="{{ $category->id }}">{{ $category->id }} {{ $category->name }}</option>
-                @endforeach
-                </select>
-            </div>
-          </div>
-
-
             <div class="col-md-6">
-              <div class="form-group" id="image-area" style="text-align:center; width:100;"></div>
               <div class="form-group">
                 <label for="edit-photo">Photo</label>
                 <input type="file" class="form-control" name="photo" id="edit-photo">
               </div>
+              <div class="form-group" id="image-area" style="text-align:center; width:100;"></div>
             </div>
 
+            
+            <div class="modal-footer">
+              <input type="hidden" name="id" id="edit-id">
+              <input type="hidden" name="old_photo" id="edit-old-photo">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal" style="padding: 5px 20px 5px 20px;">Tutup</button>
+              <button type="submit" class="btn btn-primary" style="padding: 5px 20px 5px 20px;">Update!</button>
+            </div>
+            
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="deleteBarangModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id=exampleModalLabel>Hapus Data Barang</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p>Apakah anda yakin ingin menghapus data tersebut?.</p>
+        <form method="post" action="{{ route('user.barang.delete') }}" enctype="multipart/form-data">
+        @csrf
+        @method('DELETE')
           <div class="modal-footer">
-            <input type="hidden" name="id" id="edit-id">
-            <input type="hidden" name="old_photo" id="edit-old-photo">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal" style="padding: 5px 20px 5px 20px;">Tutup</button>
-            <button type="submit" class="btn btn-primary" style="padding: 5px 20px 5px 20px;">Update!</button>
+            <input type="text" name="id" id="delete-id">
+            <input type="hidden" name="old_cover" id="delete-old-cover">
+            <button type="submit" class="btn btn-primary">Hapus</button>
           </div>
         </form>
       </div>
@@ -242,19 +270,17 @@ $(document).on('click', '#btn-edit-barang', function(){
           }else{
             $('#image-area').append('[Photo tidak tersedia]');
           }
-    }
-    
-
-
+      }
+    });
   });
+
+$(document).on('click', '#btn-delete-barang', function(){
+  let id = $(this).data('id');
+  let photo = $(this).data('photo');
+
+  $('#delete-id').val(id);
+  $('#delete-old-photo').val(photo);
 });
-
-// $(document).on('click', '#btn-delete-category', function(){
-// let id = $(this).data('id');
-
-
-// $('#delete-id').val(id);
-// });
 
 });
 
