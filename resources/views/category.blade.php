@@ -110,22 +110,22 @@
   </div>
 </div>
 
-<!-- <div class="modal fade" id="deleteBrandModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="deleteCategoryModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id=exampleModalLabel>Hapus Data Buku</h5>
+        <h5 class="modal-title" id=exampleModalLabel>Hapus Data Kategori</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
       <div class="modal-body">
         <p>Apakah anda yakin ingin menghapus data tersebut?.</p>
-        <form method="post" action="{{ route('admin.brand.delete') }}" enctype="multipart/form-data">
+        <form method="post" action="{{ route('admin.category.delete') }}" enctype="multipart/form-data">
         @csrf
         @method('DELETE')
           <div class="modal-footer">
-            <input type="hidden" name="id" id="delete-id">
+            <input type="text" name="id" id="delete-id">
             <input type="hidden" name="old_cover" id="delete-old-cover">
             <button type="submit" class="btn btn-primary">Hapus</button>
           </div>
@@ -133,7 +133,7 @@
       </div>
     </div>
   </div>
-</div> -->
+</div>
 
 
 @stop
@@ -162,12 +162,12 @@
       });
     });
 
-    // $(document).on('click', '#btn-delete-brand', function(){
-    // let id = $(this).data('id');
+    $(document).on('click', '#btn-delete-category', function(){
+    let id = $(this).data('id');
     
 
-    // $('#delete-id').val(id);
-  // });
+    $('#delete-id').val(id);
+  });
 
   });
 

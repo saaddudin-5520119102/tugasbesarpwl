@@ -123,16 +123,16 @@ class AdminController extends Controller
         return redirect()->route('admin.categories')->with($notification);
     }
 
-    // public function delete_brand(Request $req){
-    //     $brand = Brand::find($req->get('id'));
-    //     $brand->delete();
+    public function delete_category(Request $req){
+        $category = Category::find($req->get('id'));
+        $category->delete();
 
-    //     $notification = array(
-    //         'message' => 'Data brand berhasil dihapus',
-    //         'alert-type' => 'success'
-    //     );
-    //     return redirect()->route('admin.brands')->with($notification);
-    // }
+        $notification = array(
+            'message' => 'Data kategori berhasil dihapus',
+            'alert-type' => 'success'
+        );
+        return redirect()->route('admin.categories')->with($notification);
+    }
 
 
     // user
@@ -168,5 +168,35 @@ class AdminController extends Controller
         );
         return redirect()->route('user.barang')->with($notification);
         
+    }
+
+    public function getDataBarang($id){
+        $barang = Product::find($id);
+        return response()->json($barang);
+    }
+
+    public function update_barang(Request $req){
+        $barang = Product::find($req->get('id'));
+        $barang->name = $req->get('name');
+        $barang->qty = $req->get('qty');
+        $barang->brands_id = $req->get('brands_id');
+        $barang->categories_id = $req->get('categories_id');
+
+        if($req->hasFile('photo')){
+            $extension = $req->file('photo')->extension();
+            $filename = 'photo_buku_'.time().'.'.$extension;
+            $req->file('photo')->storeAs(
+                'public/photo_barang', $filename
+            );
+            Storage::delete('public/photo_barang/'.$req->get('old_photo'));
+            $barang->photo = $filename;
+        }
+        $barang->save();
+        
+        $notification = array(
+            'message' => 'Data barang berhasil diubah',
+            'alert-type' => 'success'
+        );
+        return redirect()->route('user.barang')->with($notification);
     }
 }

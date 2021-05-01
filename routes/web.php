@@ -66,9 +66,9 @@ Route::patch('admin/categories/update', [App\Http\Controllers\AdminController::c
 
 Route::get('admin/ajaxadmin/dataCategory/{id}', [App\Http\Controllers\AdminController::class, 'getDataCategory']);
 
-// Route::delete('admin/brands/delete', [App\Http\Controllers\AdminController::class, 'delete_brand'])
-//     ->name('admin.brand.delete')
-//     ->middleware('is_admin');
+Route::delete('admin/categories/delete', [App\Http\Controllers\AdminController::class, 'delete_category'])
+    ->name('admin.category.delete')
+    ->middleware('is_admin');
 
 
 // user
@@ -77,3 +77,8 @@ Route::get('user/barang', [App\Http\Controllers\AdminController::class, 'barang'
 
 Route::post('user/barang', [App\Http\Controllers\AdminController::class, 'submit_barang'])
 ->name('user.barang.submit');
+
+Route::patch('user/barang/update', [App\Http\Controllers\AdminController::class, 'update_barang'])
+    ->name('user.barang.update');
+
+Route::get('user/ajaxadmin/dataBarang/{id}', [App\Http\Controllers\AdminController::class, 'getDataBarang']);
