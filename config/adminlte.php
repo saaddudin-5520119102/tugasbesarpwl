@@ -260,12 +260,12 @@ return [
         ['header' => 'ADMINISTRASI USER',
          'can'  => 'isAdmin',
         ],
-        [
-            'text' => 'Users',
-            'url' => 'admin/users',
-            'icon' => 'fas fa-users mr-2',
-            'can'  => 'isAdmin',
-        ],
+        // [
+        //     'text' => 'Users',
+        //     'url' => 'admin/users',
+        //     'icon' => 'fas fa-users mr-2',
+        //     'can'  => 'isAdmin',
+        // ],
         [
             'text'    => 'Products',
             'icon' => 'nav-icon fas fa-edit',
