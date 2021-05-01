@@ -100,7 +100,6 @@
             </div>
             <div class="modal-footer">
               <input type="hidden" name="id" id="edit-id">
-              <!-- <input type="hidden" name="old_cover" id="edit-old-cover"> -->
               <button type="button" class="btn btn-secondary" data-dismiss="modal" style="padding: 5px 20px 5px 20px;">Tutup</button>
               <button type="submit" class="btn btn-primary" style="padding: 5px 20px 5px 20px;">Update!</button>
             </div>
@@ -128,7 +127,6 @@
           <div class="modal-footer">
             <input type="hidden" name="id" id="delete-id">
             <input type="hidden" name="old_cover" id="delete-old-cover">
-            <!-- <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button> -->
             <button type="submit" class="btn btn-primary">Hapus</button>
           </div>
         </form>
@@ -144,14 +142,9 @@
 
 <script>
   $(function(){
-
     $(document).on('click', '#btn-edit-brand', function(){
       let id = $(this).data('id');
-
-    //   $('#image-area').empty();
-
       let baseurl = "http://localhost:8000";
-
       $.ajax({
         type: "get",
         url: baseurl+'/admin/ajaxadmin/dataBrand/'+id,
@@ -160,23 +153,12 @@
           $('#edit-name').val(res.name);
           $('#edit-description').val(res.description);
           $('#edit-id').val(res.id);
-        //   if(res.cover !==null){
-        //     $('#image-area').append(
-        //       "<img src='"+baseurl+"/storage/cover_buku/"+res.cover+"' width=200px'>"
-        //     );
-        //   }else{
-        //     $('#image-area').append('[Gambar tidak tersedia]');
-        //   }
         }
-
-
       });
     });
 
     $(document).on('click', '#btn-delete-brand', function(){
     let id = $(this).data('id');
-    
-
     $('#delete-id').val(id);
   });
 

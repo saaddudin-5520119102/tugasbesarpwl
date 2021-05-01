@@ -77,7 +77,6 @@
             <label for="qty">Qty</label>
             <input type="number" class="form-control" name="qty" id="qty" required>
           </div>
-         
           <div class="form-group">
             <label class="font-noraml">
                 Brands_Id
@@ -92,7 +91,6 @@
                 </select>
             </div>
           </div>
-
           <div class="form-group">
             <label class="font-noraml">
                 Categories_Id
@@ -107,7 +105,6 @@
                 </select>
             </div>
           </div>
-
           <div class="form-group">
             <label for="photo">Photo</label>
             <input type="file" class="form-control" name="photo" id="photo" required>
@@ -136,7 +133,6 @@
           @method('PATCH')
           <div class="row">
             <div class="col-md-6">
-
               <div class="form-group">
                 <label for="edit-name">Nama Barang</label>
                 <input type="text" class="form-control" name="name" id="edit-name" required>
@@ -145,7 +141,6 @@
                 <label for="edit-qty">Qty</label>
                 <input type="number" class="form-control" name="qty" id="edit-qty" required>
               </div>
-         
               <div class="form-group">
                 <label class="font-noraml">
                     Brands_Id
@@ -160,7 +155,6 @@
                     </select>
                 </div>
               </div>
-
               <div class="form-group">
                 <label class="font-noraml">
                     Categories_Id
@@ -175,7 +169,6 @@
                     </select>
                 </div>
               </div>
-
             </div>
             <div class="col-md-6">
               <div class="form-group">
@@ -183,16 +176,13 @@
                 <input type="file" class="form-control" name="photo" id="edit-photo">
               </div>
               <div class="form-group" id="image-area" style="text-align:center; width:100;"></div>
-            </div>
-
-            
+            </div>  
             <div class="modal-footer">
               <input type="hidden" name="id" id="edit-id">
               <input type="hidden" name="old_photo" id="edit-old-photo">
               <button type="button" class="btn btn-secondary" data-dismiss="modal" style="padding: 5px 20px 5px 20px;">Tutup</button>
               <button type="submit" class="btn btn-primary" style="padding: 5px 20px 5px 20px;">Update!</button>
-            </div>
-            
+            </div> 
           </div>
         </form>
       </div>
@@ -235,7 +225,6 @@
     console.debug('modal shown!');
     $('.chosen-select', this).chosen({width: "350px"});
   });
-
   $("#myModal").modal('show');
 });
 
@@ -245,9 +234,7 @@ $(function(){
 
 $(document).on('click', '#btn-edit-barang', function(){
   let id = $(this).data('id');
-
   let baseurl = "http://localhost:8000";
-
   $.ajax({
     type: "get",
     url: baseurl+'/user/ajaxadmin/dataBarang/'+id,
@@ -255,13 +242,10 @@ $(document).on('click', '#btn-edit-barang', function(){
     success: function(res){
           $('#edit-name').val(res.name);
           $('#edit-qty').val(res.qty);
-          // $('#edit-brands_id').val(res.brands_id).attr('selected', 'selected');
-          // $('#edit-categories_id').val(res.categories_id).attr('selected', 'selected');
           $('#edit-brands_id option[value="'+res.brands_id+'"]').attr('selected', 'selected');
           $('#edit-categories_id option[value="'+res.categories_id+'"]').attr('selected', 'selected');
           $('#edit-id').val(res.id);
           $('#edit-old-photo').val(res.photo);
-
           if(res.photo !==null){
             $('#image-area').html('');
             $('#image-area').append(
@@ -277,7 +261,6 @@ $(document).on('click', '#btn-edit-barang', function(){
 $(document).on('click', '#btn-delete-barang', function(){
   let id = $(this).data('id');
   let photo = $(this).data('photo');
-
   $('#delete-id').val(id);
   $('#delete-old-photo').val(photo);
 });

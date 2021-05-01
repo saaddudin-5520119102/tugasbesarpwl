@@ -145,9 +145,7 @@
 
     $(document).on('click', '#btn-edit-category', function(){
       let id = $(this).data('id');
-
       let baseurl = "http://localhost:8000";
-
       $.ajax({
         type: "get",
         url: baseurl+'/admin/ajaxadmin/dataCategory/'+id,
@@ -157,15 +155,11 @@
           $('#edit-description').val(res.description);
           $('#edit-id').val(res.id);
         }
-
-
       });
     });
 
     $(document).on('click', '#btn-delete-category', function(){
     let id = $(this).data('id');
-    
-
     $('#delete-id').val(id);
   });
 
